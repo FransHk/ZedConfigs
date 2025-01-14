@@ -3,7 +3,7 @@
   "assistant": {
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-3-5-sonnet"
+      "model": "gpt-4o"
     },
     "version": "2"
   },
@@ -18,13 +18,17 @@
   "theme": {
     "mode": "system",
     "light": "One Light",
-    "dark": "Catppuccin Macchiato"
+    "dark": "Catppuccin Frappé - No Italics"
   },
   "lsp": {
     "ruff": {
       "initialization_options": {
         "settings": {
-          "lineLength": 80,
+          "quoteStyle": "double",
+          "lineLength": 88,
+          "indent-style": "space",
+          "line-ending": "auto",
+          "indent-width": 4,
           "lint": {
             "extendSelect": ["I"]
           }
@@ -43,6 +47,7 @@
 
   "languages": {
     "Python": {
+      "show_inline_completions": true,
       "language_servers": ["!pylsp", "pyright", "ruff"],
       "format_on_save": "on",
       "formatter": [
@@ -72,4 +77,3 @@
   "ui_font_family": "JetBrainsMono Nerd Font",
   "show_line_numbers": true
 }
-
