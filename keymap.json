@@ -16,22 +16,22 @@
     "context": "Workspace && vim_mode == normal",
     "bindings": {
       "space e": "workspace::ToggleLeftDock",
-      "ctrl-s": ["task::Spawn", { "task_name": "reposync" }]
+      "ctrl-s": ["task::Spawn", { "task_name": "rsync" }]
     }
   },
   {
     "context": "Editor",
     "bindings": {
-      "ctrl-h": ["workspace::ActivatePaneInDirection", "Left"],
-      "ctrl-l": ["workspace::ActivatePaneInDirection", "Right"],
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"],
-      "ctrl-j": ["workspace::ActivatePaneInDirection", "Down"]
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown"
     }
   },
   {
     "bindings": {
       "up": "menu::SelectPrev",
-      "ctrl-p": "menu::SelectPrev",
+      // "ctrl-p": "menu::SelectPrev",
       "ctrl-k": "menu::SelectPrev",
       "down": "menu::SelectNext",
       "ctrl-j": "menu::SelectNext",
@@ -42,7 +42,7 @@
     "context": "Terminal",
     "bindings": {
       "space x": "pane::CloseActiveItem",
-      "ctrl-k": ["workspace::ActivatePaneInDirection", "Up"]
+      "ctrl-k": "workspace::ActivatePaneUp"
     }
   },
   {
@@ -82,14 +82,15 @@
       "space s": "pane::SplitVertical",
       "space d": "editor::GoToTypeDefinitionSplit",
       "space r": "editor::FindAllReferences",
+      "space g": "editor::OpenExcerpts", // jumps to code bit after search or find all reference
       "space space": "pane::DeploySearch",
       "shift shift": "file_finder::Toggle",
       "shift-l": "pane::ActivateNextItem",
       "shift-h": "pane::ActivatePrevItem",
       "space o": "pane::SplitDown",
+      "space p": "pane::SplitRight",
       "space x": "pane::CloseActiveItem",
       "ctrl x": "pane::CloseActiveItem"
-      // "ctrl-a": "assistant::NewContext",
     }
   }
 ]
