@@ -9,7 +9,13 @@
   {
     "context": "Workspace",
     "bindings": {
-      "ctrl-s": ["task::Spawn", { "task_name": "reposync" }]
+      "ctrl-s": ["task::Spawn", { "task_name": "" }]
+    }
+  },
+  {
+    "context": "AssistantPanel",
+    "bindings": {
+      "ctrl enter": "app_menu::ActivateMenuLeft"
     }
   },
   {
@@ -30,10 +36,6 @@
   },
   {
     "bindings": {
-      "up": "menu::SelectPrev",
-      // "ctrl-p": "menu::SelectPrev",
-      "ctrl-k": "menu::SelectPrev",
-      "down": "menu::SelectNext",
       "ctrl-j": "menu::SelectNext",
       "ctrl-n": "menu::SelectNext"
     }
@@ -82,11 +84,9 @@
       "space s": "pane::SplitVertical",
       "space d": "editor::GoToTypeDefinitionSplit",
       "space r": "editor::FindAllReferences",
-      "space g": "editor::OpenExcerpts", // jumps to code bit after search or find all reference
+      "space g": "editor::OpenExcerpts", // jumps to code bit after search or find all references
       "space space": "pane::DeploySearch",
       "shift shift": "file_finder::Toggle",
-      "shift-l": "pane::ActivateNextItem",
-      "shift-h": "pane::ActivatePrevItem",
       "space o": "pane::SplitDown",
       "space p": "pane::SplitRight",
       "space x": "pane::CloseActiveItem",
