@@ -13,16 +13,16 @@
     }
   },
   {
-    "context": "AssistantPanel",
-    "bindings": {
-      "ctrl enter": "app_menu::ActivateMenuLeft"
-    }
-  },
-  {
     "context": "Workspace && vim_mode == normal",
     "bindings": {
       "space e": "workspace::ToggleLeftDock",
       "ctrl-s": ["task::Spawn", { "task_name": "rsync" }]
+    }
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "ctrl-enter": "assistant::Assist"
     }
   },
   {
@@ -74,7 +74,8 @@
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
-      "ctrl-a": "assistant::QuoteSelection"
+      "ctrl-a": "assistant::QuoteSelection",
+      "ctrl-i": "assistant::InlineAssist"
     }
   },
   {
