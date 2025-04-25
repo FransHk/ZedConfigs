@@ -62,13 +62,8 @@
       "ctrl-y": "project_panel::Copy",
       "ctrl-v": "project_panel::Paste",
       "ctrl-r": "project_panel::Rename",
-      "space e": "workspace::ToggleLeftDock"
-    }
-  },
-  {
-    "context": "Terminal",
-    "bindings": {
-      "ctrl-/": "workspace::ToggleBottomDock"
+      "space e": "workspace::ToggleLeftDock",
+      "ctrl-l": "workspace::ActivatePaneRight"
     }
   },
   {
