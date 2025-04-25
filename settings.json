@@ -1,12 +1,13 @@
 {
-  "show_inline_completions": true,
   "assistant": {
     "default_model": {
-      "provider": "copilot_chat",
+      "provider": "openai",
       "model": "gpt-4o"
     },
+
     "version": "2"
   },
+  "show_edit_predictions": false,
   "base_keymap": "VSCode",
   "vim_mode": true,
   "telemetry": {
@@ -14,20 +15,41 @@
     "metrics": false
   },
   "ui_font_size": 14,
-  "buffer_font_size": 14,
+  "buffer_font_size": 10.0,
   "theme": {
     "mode": "system",
-    "light": "One Light",
-    "dark": "Catppuccin Frappé - No Italics"
+    "light": "Catppuccin Macchiato - No Italics",
+    "dark": "Catppuccin Macchiato"
   },
   "lsp": {
+    "rust-analyzer": {
+      "lsp": {
+        "rust-analyzer": {
+          "binary": {
+            "ignore_system_version": true
+          }
+        },
+        "inlayHints": {
+          "maxLength": null,
+          "lifetimeElisionHints": {
+            "enable": "skip_trivial",
+            "useParameterNames": true
+          },
+          "closureReturnTypeHints": {
+            "enable": "always"
+          }
+        }
+      }
+    },
     "ruff": {
       "initialization_options": {
         "settings": {
+          "fix": true,
           "quoteStyle": "double",
           "lineLength": 88,
           "indent-style": "space",
           "line-ending": "auto",
+          "docstring-code-line-length": "dynamic",
           "indent-width": 4,
           "lint": {
             "extendSelect": ["I"]
@@ -46,8 +68,11 @@
   },
 
   "languages": {
+    "Rust": {
+      "show_edit_predictions": false
+    },
     "Python": {
-      "show_inline_completions": true,
+      "show_edit_predictions": true,
       "language_servers": ["!pylsp", "pyright", "ruff"],
       "format_on_save": "on",
       "formatter": [
