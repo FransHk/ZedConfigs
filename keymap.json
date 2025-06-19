@@ -31,7 +31,8 @@
       "ctrl-h": "workspace::ActivatePaneLeft",
       "ctrl-l": "workspace::ActivatePaneRight",
       "ctrl-k": "workspace::ActivatePaneUp",
-      "ctrl-j": "workspace::ActivatePaneDown"
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-a": "assistant::QuoteSelection"
     }
   },
   {
@@ -69,14 +70,16 @@
   {
     "context": "Editor && vim_mode == visual",
     "bindings": {
-      "ctrl-a": "assistant::QuoteSelection",
-      "ctrl-i": "assistant::InlineAssist"
+      "space a": "assistant::QuoteSelection",
+      "ctrl-i": "assistant::InlineAssist",
+      "ctrl-d": "workspace::CloseActiveDock"
     }
   },
   {
     "context": "Editor && vim_mode == normal",
     "bindings": {
       "space e": "workspace::ToggleLeftDock",
+      "space a": "workspace::ToggleRightDock",
       "space s": "pane::SplitVertical",
       "space d": "editor::GoToTypeDefinitionSplit",
       "space r": "editor::FindAllReferences",
