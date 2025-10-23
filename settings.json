@@ -1,13 +1,26 @@
 {
-  "assistant": {
-    "default_model": {
+  "enable_language_server": true,
+  "unnecessary_code_fade": 0.2,
+  "edit_predictions": {
+    "mode": "eager",
+    "copilot": {
+      "proxy": null,
+      "proxy_no_verify": null,
+      "enterprise_uri": null
+    },
+    "enabled_in_text_threads": false
+  },
+  "agent": {
+    "inline_assistant_model": {
       "provider": "openai",
       "model": "gpt-4o"
     },
-
-    "version": "2"
+    "default_model": {
+      "provider": "openai",
+      "model": "gpt-4o"
+    }
   },
-  "show_edit_predictions": false,
+  "show_edit_predictions": true,
   "base_keymap": "VSCode",
   "vim_mode": true,
   "telemetry": {
@@ -19,49 +32,26 @@
   "theme": {
     "mode": "system",
     "light": "Catppuccin Macchiato - No Italics",
-    "dark": "Catppuccin Macchiato"
+    "dark": "Catppuccin Frappé - No Italics"
   },
+
+  // From the ZED docs:
+  // If a built-in language server is installed in the active virtual environment,
+  // that binary will be used instead of Zed's private automatically-installed binary.
+  // Check language server logs to verify if it uses the .venv version!
   "lsp": {
-    "rust-analyzer": {
-      "lsp": {
-        "rust-analyzer": {
-          "binary": {
-            "ignore_system_version": true
-          }
-        },
-        "inlayHints": {
-          "maxLength": null,
-          "lifetimeElisionHints": {
-            "enable": "skip_trivial",
-            "useParameterNames": true
-          },
-          "closureReturnTypeHints": {
-            "enable": "always"
-          }
+    "pyright": {
+      "settings": {
+        "python.analysis": {
+          "diagnosticMode": "workspace",
+          "typeCheckingMode": "standard"
         }
       }
     },
     "ruff": {
       "initialization_options": {
         "settings": {
-          "fix": true,
-          "quoteStyle": "double",
-          "lineLength": 88,
-          "indent-style": "space",
-          "line-ending": "auto",
-          "docstring-code-line-length": "dynamic",
-          "indent-width": 4,
-          "lint": {
-            "extendSelect": ["I"]
-          }
-        }
-      }
-    },
-    "pyright": {
-      "settings": {
-        "python.analysis": {
-          "diagnosticMode": "workspace",
-          "typeCheckingMode": "standard"
+          "logLevel": "debug"
         }
       }
     }
@@ -73,15 +63,10 @@
     },
     "Python": {
       "show_edit_predictions": true,
-      "language_servers": ["!pylsp", "pyright", "ruff"],
+      "language_servers": ["pyright", "ruff"],
       "format_on_save": "on",
       "formatter": [
-        {
-          "code_actions": {
-            "source.organizeImports.ruff": true
-            // "source.fixAll.ruff": true
-          }
-        },
+        { "code_action": "source.organizeImports.ruff" },
         {
           "language_server": {
             "name": "ruff"
@@ -96,9 +81,6 @@
     "selections_menu": false
   },
 
-  "autosave_on_focus_change": true,
-  "autosave_on_window_change": true,
   "buffer_font_family": "JetBrainsMono Nerd Font",
-  "ui_font_family": "JetBrainsMono Nerd Font",
-  "show_line_numbers": true
+  "ui_font_family": "JetBrainsMono Nerd Font"
 }
