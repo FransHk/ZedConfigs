@@ -80,6 +80,7 @@
     "bindings": {
       "space e": "workspace::ToggleLeftDock",
       "space a": "workspace::ToggleRightDock",
+      "space b": "diagnostics:deploy",
       "space s": "pane::SplitVertical",
       "space d": "editor::GoToTypeDefinitionSplit",
       "space r": "editor::FindAllReferences",
