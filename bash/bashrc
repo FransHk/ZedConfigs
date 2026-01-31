@@ -1,0 +1,20 @@
+#
+# ~/.bashrc
+#
+
+# If not running interactively, don't do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --color=auto'
+alias ga='git add'
+alias gc='git commit -m'
+alias gp='git push'
+alias avenv='source .venv/bin/activate'
+alias grep='grep --color=auto'
+alias l='ls --color=auto -CF'
+alias hyconf='vim ~/.config/hypr/hyprland.conf'
+alias hyreload='hyprctl reload'
+PS1='[\u@\h \W]\$ '
+
+eval "$(starship init bash)"
+export PATH=$HOME/.local/bin:$PATH
