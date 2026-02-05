@@ -1,0 +1,96 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      "ctrl-s": ["task::Spawn", { "task_name": "" }],
+    },
+  },
+  {
+    "context": "Workspace && vim_mode == normal",
+    "bindings": {
+      "space e": "workspace::ToggleLeftDock",
+      "ctrl-s": ["task::Spawn", { "task_name": "rsync" }],
+    },
+  },
+  {
+    "context": "Editor && mode == full",
+    "bindings": {
+      "ctrl-enter": "assistant::Assist",
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "ctrl-h": "workspace::ActivatePaneLeft",
+      "ctrl-l": "workspace::ActivatePaneRight",
+      "ctrl-k": "workspace::ActivatePaneUp",
+      "ctrl-j": "workspace::ActivatePaneDown",
+      "ctrl-a": "assistant::QuoteSelection",
+    },
+  },
+  {
+    "bindings": {
+      "ctrl-j": "menu::SelectNext",
+      "ctrl-n": "menu::SelectNext",
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "space x": "pane::CloseActiveItem",
+      "ctrl-k": "workspace::ActivatePaneUp",
+    },
+  },
+  {
+    "context": "ProjectSearch",
+    "bindings": {
+      "ctrl x": "pane::CloseActiveItem",
+    },
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "alt-ctrl-a": "project_panel::NewDirectory",
+      "ctrl-a": "project_panel::NewFile",
+      "ctrl-d": "project_panel::Delete",
+      "ctrl-y": "project_panel::Copy",
+      "ctrl-v": "project_panel::Paste",
+      "ctrl-r": "project_panel::Rename",
+      "space e": "workspace::ToggleLeftDock",
+      "ctrl-l": "workspace::ActivatePaneRight",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == visual",
+    "bindings": {
+      "space a": "assistant::QuoteSelection",
+      "ctrl-i": "assistant::InlineAssist",
+      "ctrl-d": "workspace::CloseActiveDock",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space e": "workspace::ToggleLeftDock",
+      "space a": "workspace::ToggleRightDock",
+      "space b": "diagnostics:deploy",
+      "space s": "pane::SplitVertical",
+      "space d": "editor::GoToTypeDefinitionSplit",
+      "space r": "editor::FindAllReferences",
+      "space g": "editor::OpenExcerpts", // jumps to code bit after search or find all references
+      "space space": "pane::DeploySearch",
+      "shift shift": "file_finder::Toggle",
+      "space o": "pane::SplitDown",
+      "space p": "pane::SplitRight",
+      "space x": "pane::CloseActiveItem",
+      "ctrl x": "pane::CloseActiveItem",
+    },
+  },
+]
