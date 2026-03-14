@@ -5,3 +5,7 @@ cd tmp_fonts
 unzip JetBrainsMono.zip
 sudo cp *.ttf /usr/share/fonts/TTF/
 
+
+# Also, install emojis (e.g. starship icon for Python, Git, etc)
+yay -S noto-fonts-emoji
+

@@ -6,33 +6,33 @@
     "copilot": {
       "proxy": null,
       "proxy_no_verify": null,
-      "enterprise_uri": null
+      "enterprise_uri": null,
     },
-    "enabled_in_text_threads": false
+    "enabled_in_text_threads": false,
   },
   "agent": {
     "inline_assistant_model": {
       "provider": "openai",
-      "model": "gpt-4o"
+      "model": "gpt-4o",
     },
     "default_model": {
       "provider": "openai",
-      "model": "gpt-4o"
-    }
+      "model": "gpt-4o",
+    },
   },
   "show_edit_predictions": true,
   "base_keymap": "VSCode",
   "vim_mode": true,
   "telemetry": {
     "diagnostics": false,
-    "metrics": false
+    "metrics": false,
   },
   "ui_font_size": 14,
   "buffer_font_size": 10.0,
   "theme": {
     "mode": "system",
     "light": "Catppuccin Macchiato - No Italics",
-    "dark": "Catppuccin Frappé - No Italics"
+    "dark": "Catppuccin Frappé - No Italics",
   },
 
   // From the ZED docs:
@@ -44,22 +44,22 @@
       "settings": {
         "python.analysis": {
           "diagnosticMode": "workspace",
-          "typeCheckingMode": "standard"
-        }
-      }
+          "typeCheckingMode": "standard",
+        },
+      },
     },
     "ruff": {
       "initialization_options": {
         "settings": {
-          "logLevel": "debug"
-        }
-      }
-    }
+          "logLevel": "debug",
+        },
+      },
+    },
   },
 
   "languages": {
     "Rust": {
-      "show_edit_predictions": false
+      "show_edit_predictions": false,
     },
     "Python": {
       "show_edit_predictions": true,
@@ -69,18 +69,18 @@
         { "code_action": "source.organizeImports.ruff" },
         {
           "language_server": {
-            "name": "ruff"
-          }
-        }
-      ]
-    }
+            "name": "ruff",
+          },
+        },
+      ],
+    },
   },
   "toolbar": {
     "breadcrumbs": true,
     "quick_actions": false,
-    "selections_menu": false
+    "selections_menu": false,
   },
 
-  "buffer_font_family": "JetBrainsMono Nerd Font",
-  "ui_font_family": "JetBrainsMono Nerd Font"
+  "buffer_font_family": "JetBrainsMono Nerd Font Mono",
+  "ui_font_family": "JetBrainsMono Nerd Font Mono",
 }
