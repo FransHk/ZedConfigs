@@ -14,11 +14,20 @@ alias grep='grep --color=auto'
 alias l='ls --color=auto -CF'
 alias hyconf='vim ~/.config/hypr/hyprland.conf'
 alias hyreload='hyprctl reload'
+alias open='thunar'
+alias mount='sudo sshfs -o allow_other,default_permissions' # mnt fs (remote, local)
+alias unmount='sudo umount -f' # unmount fs
 PS1='[\u@\h \W]\$ '
 
 eval "$(starship init bash)"
+eval "$(direnv hook bash)"  # direnv eval hook
 export PATH=$HOME/.local/bin:$PATH
 
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - bash)"
+export PATH="$HOME/.pyenv/bin:$PATH"
+eval "$(pyenv init --path)"
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+
+
+
+
