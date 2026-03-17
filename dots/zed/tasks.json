@@ -3,6 +3,13 @@
 // Example:
 [
   {
+    "label": "[Training 1] sync [ML2]",
+    "command": "rsync --filter \":- ./home/fransh/Documents/oddity/.gitignore\" --filter \"- .git/\" --filter \"- .venv/\" --filter \"- .direnv/\" -va /home/fransh/Documents/oddity/ml2 oddity@training-1:~/frans/projects/oddity/ --delete-after",
+    "use_new_terminal": false,
+    "allow_concurrent_runs": false,
+    "shell": "system",
+  },
+  {
     "label": "[Training 2] sync [ML2]",
     "command": "rsync --filter \":- ./home/fransh/Documents/oddity/.gitignore\" --filter \"- .git/\" --filter \"- .venv/\" --filter \"- .direnv/\" -va /home/fransh/Documents/oddity/ml2 oddity@training-2:~/frans/projects/oddity/ --delete-after",
     "use_new_terminal": false,
@@ -10,8 +17,8 @@
     "shell": "system",
   },
   {
-    "label": "[Training 1] sync [ML2]",
-    "command": "rsync --filter \":- ./home/fransh/Documents/oddity/.gitignore\" --filter \"- .git/\" --filter \"- .venv/\" --filter \"- .direnv/\" -va /home/fransh/Documents/oddity/ml2 oddity@training-1:~/frans/projects/oddity/ --delete-after",
+    "label": "[Training 3] sync [ML2]",
+    "command": "rsync --filter \":- ./home/fransh/Documents/oddity/.gitignore\" --filter \"- .git/\" --filter \"- .venv/\" --filter \"- .direnv/\" -va /home/fransh/Documents/oddity/ml2 oddity@training-3:~/frans/projects/oddity/ --delete-after",
     "use_new_terminal": false,
     "allow_concurrent_runs": false,
     "shell": "system",
