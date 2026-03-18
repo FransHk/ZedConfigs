@@ -1,4 +1,4 @@
-sudo pacman -S bluez bluez-utils
+sudo pacman -S bluez bluez-utils blueman # utils + blueman applet
 sudo systemctl enable --now bluetooth.service # Turn on bluetooth
 
 # Next, we use: 
