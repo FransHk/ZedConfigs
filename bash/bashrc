@@ -16,6 +16,7 @@ alias hyconf='vim ~/.config/hypr/hyprland.conf'
 alias hyreload='hyprctl reload'
 alias open='thunar'
 alias ml2='cd ~/Documents/oddity/ml2; avenv'
+alias hybinds='cat ~/.config/hypr/hyprland.conf | grep exec,' # print keybinds
 alias sh='TERM=xterm-256color ssh'
 alias mount='sudo sshfs -o allow_other,default_permissions' # mnt fs (remote, local)
 alias unmount='sudo umount -f' # unmount fs
