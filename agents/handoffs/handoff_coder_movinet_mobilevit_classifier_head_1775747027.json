@@ -1,0 +1,55 @@
+{
+  "name": "movinet_mobilevit_classifier_head",
+  "created_at": "2026-04-09T15:03:51Z",
+  "role": "coder",
+  "work_type": "FEATURE",
+  "problem_domain": "violence detection in video data",
+  "source_handoff": {
+    "filename": "handoff_overseer_movinet_mobilevit_classifier_head_1775746487.json",
+    "role": "overseer"
+  },
+  "branch": {
+    "name": "feature_agent/ml2/movinet_mobilevit_classifier_head"
+  },
+  "baseline_toml": {
+    "path": "3866-hail.toml",
+    "preserved": true
+  },
+  "recommended_runs": [
+    {
+      "config_path": "3866-mobilevit-head.toml",
+      "reason": "Default MobileViT-style head activation with the cleanest first-pass hyperparameters."
+    },
+    {
+      "config_path": "3866-mobilevit-head-wide-tokens.toml",
+      "reason": "Preserves more spatial structure before attention to test whether the default token pooling is too aggressive."
+    },
+    {
+      "config_path": "3866-mobilevit-head-small.toml",
+      "reason": "Lower-capacity variant to reduce overfitting risk if the larger head is noisy or unstable."
+    }
+  ],
+  "implementation_summary": {
+    "status": "ready_for_training",
+    "exact_feature_implemented": "Added an optional MobileViT-style MoViNet classifier head that pools the final MoViNet feature map into a compact token set, applies lightweight self-attention, pools the attended tokens, and emits the existing binary logits.",
+    "config_surface": [
+      "train.movinet_classifier_head_type",
+      "train.movinet_mobilevit_head"
+    ]
+  },
+  "constraints_checked": [
+    "The pretrained MoViNet backbone was not modified or replaced.",
+    "Only the classifier head behavior was changed.",
+    "Binary violence classification remains unchanged.",
+    "The new head is optional and controlled entirely through config."
+  ],
+  "verification": {
+    "tests": [
+      "pytest common/models/movinet/test_movinet.py common/models/test_model_storage.py -q"
+    ],
+    "notes": [
+      "Targeted tests passed.",
+      "ruff was not available in the environment."
+    ]
+  }
+}

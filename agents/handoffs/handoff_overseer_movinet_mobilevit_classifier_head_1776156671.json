@@ -1,0 +1,58 @@
+{
+  "name": "movinet_mobilevit_classifier_head",
+  "created_at": "2026-04-14T08:51:11Z",
+  "role": "overseer",
+  "work_type": "FEATURE",
+  "problem_domain": "violence detection in video data",
+  "work_request": {
+    "task_type": "FEATURE",
+    "is_continuation": true,
+    "continuation_of": "handoff_coder_movinet_mobilevit_classifier_head_1775747027.json",
+    "coder_goal": "Wait for the launched feature runs to finish, then revise only if overseer evaluation against the baseline shows a justified need."
+  },
+  "baseline_run": {
+    "run_id": "3866",
+    "reason": "default baseline run retained by user for overseer-side evaluation"
+  },
+  "baseline_toml": {
+    "path": "3866-hail.toml",
+    "reason": "default SOTA baseline TOML retained by user"
+  },
+  "runner": {
+    "name": "training-2",
+    "approved_by": "user"
+  },
+  "launched_runs": [
+    {
+      "run_name": "movinet_mobilevit_classifier_head",
+      "config_path": "3866-mobilevit-head.toml",
+      "queue_id": "3b463676",
+      "priority": 1
+    },
+    {
+      "run_name": "movinet_mobilevit_classifier_head_wide_tokens",
+      "config_path": "3866-mobilevit-head-wide-tokens.toml",
+      "queue_id": "1e7f2870",
+      "priority": 2
+    },
+    {
+      "run_name": "movinet_mobilevit_classifier_head_small",
+      "config_path": "3866-mobilevit-head-small.toml",
+      "queue_id": "bf10d5fe",
+      "priority": 3
+    }
+  ],
+  "next_step": {
+    "owner": "overseer",
+    "action": "Check completed run performance against baseline run 3866 once results are available.",
+    "required_summary_metrics": [
+      "ROC-AUC",
+      "PR-AUC",
+      "PPK-AUC",
+      "FPR",
+      "TPR",
+      "Calibration"
+    ],
+    "judgment_priority": "Within the required summary contract, prioritize PPK-AUC ordering quality and behavior under tight false-positive limits."
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "schema_type": "evaluation",
+  "name": "movinet_mobilevit_classifier_head",
+  "created_at": "2026-04-15T07:17:43Z",
+  "role": "overseer",
+  "work_type": "REVISION",
+  "source_implementation": {
+    "name": "movinet_mobilevit_classifier_head",
+    "path": "/home/fransh/Documents/agents/handoffs/handoff_coder_movinet_mobilevit_classifier_head_1775747027.json"
+  },
+  "baseline": {
+    "run_id": "3866",
+    "toml_path": "3866-hail.toml",
+    "selected_epoch": 6
+  },
+  "dispatch": {
+    "runner": "training-2",
+    "started_runs": [
+      {
+        "run_name": "movinet_mobilevit_classifier_head",
+        "config_path": "3866-mobilevit-head.toml",
+        "run_id": "4174",
+        "status": "killed"
+      },
+      {
+        "run_name": "movinet_mobilevit_classifier_head_wide_tokens",
+        "config_path": "3866-mobilevit-head-wide-tokens.toml",
+        "run_id": "4183",
+        "status": "finished"
+      },
+      {
+        "run_name": "movinet_mobilevit_classifier_head_small",
+        "config_path": "3866-mobilevit-head-small.toml",
+        "run_id": "4202",
+        "status": "finished"
+      }
+    ]
+  },
+  "incomplete_runs": [
+    {
+      "config_path": "3866-mobilevit-head.toml",
+      "run_id": "4174",
+      "status": "killed",
+      "selected_epoch": 4,
+      "note": "Best partial metrics were also below baseline on all six summary metrics, so a blind rerun is not recommended."
+    }
+  ],
+  "results": [
+    {
+      "config_path": "3866-mobilevit-head-wide-tokens.toml",
+      "run_id": "4183",
+      "selected_epoch": 4,
+      "summary_metrics": {
+        "segment PPK-AUC @ TopK=500 (validation)": 0.9360506290902116,
+        "segment mTPR in [0,0.001] FPR (validation)": 0.5477038025856018,
+        "segment PPK-AUC @ TopK=250 (validation)": 0.9995320638020834,
+        "event PPK-AUC @ TopK=500 (validation)": 0.586898773132202,
+        "event mTPR in [0,0.001] FPR (validation)": 0.6166503429412842,
+        "event PPK-AUC @ TopK=250 (validation)": 0.8072146986383032
+      },
+      "comparison_vs_baseline": {
+        "improved_metrics_count": 0,
+        "regressed_metrics_count": 6,
+        "unchanged_metrics_count": 0,
+        "improved_metrics": [],
+        "regressed_metrics": [
+          "segment PPK-AUC @ TopK=500 (validation)",
+          "segment mTPR in [0,0.001] FPR (validation)",
+          "segment PPK-AUC @ TopK=250 (validation)",
+          "event PPK-AUC @ TopK=500 (validation)",
+          "event mTPR in [0,0.001] FPR (validation)",
+          "event PPK-AUC @ TopK=250 (validation)"
+        ]
+      },
+      "verdict": {
+        "label": "REJECT_CANDIDATE",
+        "reason": "All six default summary metrics regressed versus baseline, including every PPK-AUC ordering metric and both tight-FPR mTPR metrics."
+      }
+    },
+    {
+      "config_path": "3866-mobilevit-head-small.toml",
+      "run_id": "4202",
+      "selected_epoch": 4,
+      "summary_metrics": {
+        "segment PPK-AUC @ TopK=500 (validation)": 0.9088113972084795,
+        "segment mTPR in [0,0.001] FPR (validation)": 0.5185720920562744,
+        "segment PPK-AUC @ TopK=250 (validation)": 0.9985235742775791,
+        "event PPK-AUC @ TopK=500 (validation)": 0.5585790722069138,
+        "event mTPR in [0,0.001] FPR (validation)": 0.6290213465690613,
+        "event PPK-AUC @ TopK=250 (validation)": 0.7930004931836722
+      },
+      "comparison_vs_baseline": {
+        "improved_metrics_count": 0,
+        "regressed_metrics_count": 6,
+        "unchanged_metrics_count": 0,
+        "improved_metrics": [],
+        "regressed_metrics": [
+          "segment PPK-AUC @ TopK=500 (validation)",
+          "segment mTPR in [0,0.001] FPR (validation)",
+          "segment PPK-AUC @ TopK=250 (validation)",
+          "event PPK-AUC @ TopK=500 (validation)",
+          "event mTPR in [0,0.001] FPR (validation)",
+          "event PPK-AUC @ TopK=250 (validation)"
+        ]
+      },
+      "verdict": {
+        "label": "REJECT_CANDIDATE",
+        "reason": "This variant also regressed on all six contract metrics and was weaker than the wide-tokens variant on the key PPK-AUC ordering metrics."
+      }
+    }
+  ],
+  "overall_decision": {
+    "recommended_next_step": "REVISION",
+    "reason": "No completed candidate improved any of the six default summary metrics against baseline 3866, and the killed default run showed weaker partial metrics as well. Do not queue further MobileViT-head variants without coder-side revision."
+  }
+}

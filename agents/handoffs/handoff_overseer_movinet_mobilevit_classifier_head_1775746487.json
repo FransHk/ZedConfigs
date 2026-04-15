@@ -1,0 +1,48 @@
+{
+  "name": "movinet_mobilevit_classifier_head",
+  "created_at": "2026-04-09T00:54:47Z",
+  "role": "overseer",
+  "work_type": "FEATURE",
+  "problem_domain": "violence detection in video data",
+  "work_request": {
+    "task_type": "FEATURE",
+    "is_continuation": false,
+    "continuation_of": null,
+    "coder_goal": "Implement the requested feature from scratch."
+  },
+  "baseline_run": {
+    "run_id": "3866",
+    "reason": "default baseline run for overseer-side evaluation"
+  },
+  "baseline_toml": {
+    "path": "3866-hail.toml",
+    "reason": "current SOTA config and default base config; it must remain untouched"
+  },
+  "feature_brief": {
+    "exact_feature": "Replace the current shallow MoViNet classifier with a lightweight MobileViT-style hybrid classifier head. The new head should operate on the final MoViNet feature map before global pooling, reduce it to a manageable token set, apply a small amount of self-attention, then pool and emit the existing binary logits.",
+    "primary_paper": {
+      "title": "MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer",
+      "url": "https://arxiv.org/abs/2110.02178"
+    },
+    "reference_code": {
+      "title": "Apple CVNets / MobileViT",
+      "url": "https://github.com/apple/ml-cvnets"
+    },
+    "constraints": [
+      "Do not modify or replace the pretrained MoViNet backbone.",
+      "Only change the classification head behavior.",
+      "Keep the task as binary violence classification.",
+      "Keep the head lightweight and practical for the existing A5 training setup."
+    ]
+  },
+  "implementation_rules": [
+    "Keep the current SOTA TOML as the default base config unless explicitly changed by the overseer.",
+    "Any new feature must be optional and switchable on or off through config.",
+    "Introduce a new TOML that enables the requested feature, and leave 3866-hail.toml untouched."
+  ],
+  "user_signoff": {
+    "approved": true,
+    "approved_by": "user",
+    "approval_notes": "Approved in chat before saving."
+  }
+}
