@@ -1,0 +1,62 @@
+{
+  "name": "movinet_attention_pool_head",
+  "created_at": "2026-04-15T07:56:10Z",
+  "role": "overseer",
+  "work_type": "REVISION",
+  "problem_domain": "violence detection in video data",
+  "work_request": {
+    "task_type": "REVISION",
+    "is_continuation": true,
+    "continuation_of": "handoff_coder_movinet_attention_pool_head_1776239605.json",
+    "coder_goal": "Wait for the launched attention-pool head runs to finish, then evaluate them against baseline 3866 and revise only if the overseer verdict justifies it."
+  },
+  "source_implementation": {
+    "name": "movinet_attention_pool_head",
+    "path": "/home/fransh/Documents/agents/handoffs/handoff_coder_movinet_attention_pool_head_1776239605.json"
+  },
+  "baseline_run": {
+    "run_id": "3866",
+    "reason": "default baseline run for overseer-side evaluation"
+  },
+  "baseline_toml": {
+    "path": "3866-hail.toml",
+    "reason": "current SOTA config and default base config retained by user"
+  },
+  "runner": {
+    "name": "training-2",
+    "approved_by": "user"
+  },
+  "launched_runs": [
+    {
+      "run_name": "movinet_attention_pool_head",
+      "config_path": "3866-attention-pool-head.toml",
+      "queue_id": "9ba8d228",
+      "priority": 1
+    },
+    {
+      "run_name": "movinet_attention_pool_head_multi_query",
+      "config_path": "3866-attention-pool-head-multi-query.toml",
+      "queue_id": "26e095ad",
+      "priority": 2
+    },
+    {
+      "run_name": "movinet_attention_pool_head_small",
+      "config_path": "3866-attention-pool-head-small.toml",
+      "queue_id": "50ace03a",
+      "priority": 3
+    }
+  ],
+  "next_step": {
+    "owner": "overseer",
+    "action": "Check completed or otherwise evaluable run performance against baseline run 3866 once results are available.",
+    "required_summary_metrics": [
+      "segment PPK-AUC @ TopK=500 (validation)",
+      "segment mTPR in [0,0.001] FPR (validation)",
+      "segment PPK-AUC @ TopK=250 (validation)",
+      "event PPK-AUC @ TopK=500 (validation)",
+      "event mTPR in [0,0.001] FPR (validation)",
+      "event PPK-AUC @ TopK=250 (validation)"
+    ],
+    "judgment_priority": "Prioritize PPK-AUC ordering quality and tight-FPR behavior when assigning per-TOML verdicts."
+  }
+}

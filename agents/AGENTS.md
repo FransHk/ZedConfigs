@@ -1,13 +1,7 @@
 Global rules
 Scope
 
-Repo context: W&B experiment workflow for violence detection in video data.
 Agents in this workflow: researcher, coder, overseer.
-
-Legacy aliases:
-
-research_distiller = researcher
-evaluator = overseer
 
 All agents must write JSON handoffs to 'handoffs' dir
 Every handoff filename must follow exactly:
@@ -94,6 +88,10 @@ any production nuance not already captured below.
 
 It should discuss these points explicitly rather than assuming they can be inferred from papers, code, or prior runs.
 
+When discussing an idea, the researcher must explicitly reason from the knowledge base in this file together with the user's supplied context.
+It must not pull ideas purely from papers or reference repositories.
+It must actively consider training realities, evaluation setup, and production behavior when forming and defending a recommendation.
+
 Researcher-only domain knowledge (IMPORTANT!)
 
 The researcher should keep the following in mind while forming recommendations:
@@ -124,6 +122,12 @@ The researcher will combine these assumptions with the domain knowledge of the u
 
 Startup behaviour
 
+Researcher can either discuss a new feature, or iterate on a feature based on evaluation feedback by the overseer.
+
+When iterating on a feature after an evaluation report, the researcher must not rely only on the summary metrics.
+It must also consider the model's performance-over-time signals, such as the validated-epoch perf_score timeline and any other reported learning-curve behavior.
+It should relate those dynamics to plausible causes such as underfitting, overfitting, insufficient epochs, excessive epochs, learning-rate issues, or other training-regime mismatches before recommending a revision.
+
 On startup, the researcher asks discusses:
 the feature idea to explore;
 materials to study first, such as literature, papers, repositories, codebases, websites, prior experiments, or other references;
@@ -138,6 +142,7 @@ Before producing a proposal, the researcher must:
 
 study the provided materials;
 discuss the problem and the feature variants with the user;
+refer to the knowledge base in its reasoning rather than arguing from papers alone;
 identify where production realities may change the preferred design;
 recommend a single best variant;
 obtain explicit user signoff.
@@ -256,7 +261,7 @@ feature_agent/ml2/{feature_name}
 
 The coder must:
 
-obtain approval for local git operations needed to inspect status, create or check out branches, and commit;
+freely use local git operations needed to inspect status, create or check out branches, and commit;
 never perform remote git actions unless the user explicitly instructs it.
 
 Disallowed without explicit user instruction:
@@ -267,6 +272,7 @@ git fetch
 any other remote-contacting git command
 
 Local commits are allowed.
+Local commits should remain local unless the user explicitly instructs a push.
 
 Implementation rules
 
@@ -465,7 +471,29 @@ Used by the overseer after runs are dispatched and any evaluable runs are compar
         "segment PPK-AUC @ TopK=250 (validation)": 0.0,
         "event PPK-AUC @ TopK=500 (validation)": 0.0,
         "event mTPR in [0,0.001] FPR (validation)": 0.0,
-        "event PPK-AUC @ TopK=250 (validation)": 0.0
+        "event PPK-AUC @ TopK=250 (validation)": 0.0,
+        "perf_score (validation) timeline": [
+          {
+            "epoch": 4,
+            "step": 40000,
+            "value": 0.91
+          },
+          {
+            "epoch": 6,
+            "step": 60000,
+            "value": 0.94
+          },
+          {
+            "epoch": 8,
+            "step": 80000,
+            "value": 0.93
+          },
+          {
+            "epoch": 10,
+            "step": 100000,
+            "value": 0.95
+          }
+        ]
       },
       "comparison_vs_baseline": {
         "improved_metrics_count": 4,
@@ -498,11 +526,12 @@ For every evaluated run:
 
 determine the epoch with the highest perf_score (validation);
 report the six default summary metrics from that same epoch;
-compare those six metrics against the baseline summary metrics;
+report the validated-epoch perf_score (validation) timeline as the seventh summary item;
+compare the six scalar summary metrics against the baseline summary metrics;
 count how many improved, regressed, or stayed unchanged;
 assign a verdict for that TOML.
 
-A run with W&B state `killed` should still be treated as a normal evaluated result if the overseer can determine a selected perf_score (validation) epoch and retrieve the six default summary metrics from that epoch.
+A run with W&B state `killed` should still be treated as a normal evaluated result if the overseer can determine a selected perf_score (validation) epoch, retrieve the six default summary metrics from that epoch, and reconstruct the validated-epoch perf_score timeline.
 In this workflow, `killed` commonly means the user intentionally stopped the run early after it had already produced usable validation metrics.
 
 The overseer's per-TOML verdict must be grounded in:
@@ -514,12 +543,13 @@ A run that improves more metrics may still receive a cautious verdict if the wro
 
 Evaluation rules
 
-The evaluation handoff must always use the six default summary metrics.
+The evaluation handoff must always use the seven-item summary contract: six scalar validation metrics plus the validated-epoch perf_score (validation) timeline.
 The overseer must select the epoch with the highest perf_score (validation) for each run before reporting summary metrics.
-The overseer must make a per-TOML verdict based on how many of the six summary metrics improved against baseline.
+The overseer must make a per-TOML verdict based on how many of the six scalar summary metrics improved against baseline.
 The overseer must still emphasize PPK-AUC metrics in its rationale, even though improved-metric count is required.
 The overseer should include any dispatched run in `results` if those metrics are available, even when the run state is `killed`.
-The overseer should omit a dispatched run from `results` only when no valid selected epoch or summary metric set can be retrieved.
+The perf_score timeline is a contextual summary for researcher and coder interpretation and does not change the improved/regressed/unchanged counts by itself.
+The overseer should omit a dispatched run from `results` only when no valid selected epoch, perf_score timeline, or summary metric set can be retrieved.
 
 Verdict guidance
 
@@ -542,7 +572,7 @@ source implementation reference;
 baseline run and TOML;
 dispatch information;
 per-run selected epoch;
-six summary metrics per run;
+seven summary items per run, including the perf_score timeline;
 comparison vs baseline for each run;
 per-TOML verdict;
 overall decision.
@@ -551,7 +581,7 @@ overall decision.
 
 Default metric summary contract
 
-Whenever a metric summary is requested, always report these six validation metrics in this exact order:
+Whenever a metric summary is requested, always report these seven summary items in this exact order:
 
 segment PPK-AUC @ TopK=500 (validation)
 segment mTPR in [0,0.001] FPR (validation)
@@ -559,12 +589,14 @@ segment PPK-AUC @ TopK=250 (validation)
 event PPK-AUC @ TopK=500 (validation)
 event mTPR in [0,0.001] FPR (validation)
 event PPK-AUC @ TopK=250 (validation)
+perf_score (validation) timeline across all validated epochs
 
-Before reporting those six metrics for a run:
+Before reporting those seven summary items for a run:
 
 first determine the epoch with the highest perf_score (validation);
 explicitly report that selected epoch;
-then report the six default summary metrics from that same selected epoch.
+then report the six default summary metrics from that same selected epoch;
+then report the perf_score (validation) timeline across every epoch that was actually validated, in epoch order.
 
 Multi-model comparison contract
 
@@ -574,6 +606,7 @@ use metric-summary-compare in terminal format;
 put the first requested ID as the baseline run;
 print the full run names for every compared run at the top;
 print each run's selected perf_score (validation) epoch, step, and value at the top;
+print each run's validated-epoch perf_score (validation) timeline at the top;
 print the full metric titles exactly as listed above;
 keep the terminal block layout from wandb_query.py intact when reporting the comparison.
 

@@ -1,0 +1,59 @@
+{
+  "schema_type": "proposal",
+  "name": "movinet_attention_pool_head",
+  "created_at": "2026-04-15T07:45:10Z",
+  "role": "researcher",
+  "work_type": "REVISION",
+  "problem_domain": "violence detection in video data",
+  "baseline": {
+    "run_id": "3866",
+    "toml_path": "3866-hail.toml"
+  },
+  "feature_request": {
+    "is_continuation": true,
+    "continuation_of": "handoff_overseer_movinet_mobilevit_classifier_head_1776237452.json",
+    "exact_feature": "Replace the current MoViNet average-pool classifier head with a lightweight learned attention-pooling head that reads the final MoViNet feature map using a dedicated query-style pooling operation, then emits the existing binary violence logits.",
+    "why_this_variant": "The previous MobileViT-style replacement regressed on all six evaluation summary metrics, which indicates that aggressive token compression plus a tiny transformer readout was the wrong replacement for this partially frozen A5 setup. The recommended revision keeps the backbone's late feature geometry intact and changes only the pooling/readout behavior, which is the most direct way to test whether fixed average pooling is the real limitation while staying lightweight and better aligned with pretrained MoViNet features.",
+    "production_context_from_user": [
+      "The user wants the next iteration to remain a true replacement head rather than an additive side branch.",
+      "The user believes the current classifier head can be beaten and should not be treated as final just because it was historically chosen."
+    ]
+  },
+  "references": {
+    "primary_paper": {
+      "title": "Learning Transferable Visual Models From Natural Language Supervision",
+      "url": "https://arxiv.org/abs/2103.00020"
+    },
+    "reference_code": {
+      "title": "OpenAI CLIP",
+      "url": "https://github.com/openai/CLIP"
+    },
+    "supporting_materials": [
+      {
+        "title": "Going Deeper with Image Transformers",
+        "url": "https://arxiv.org/abs/2103.17239"
+      },
+      {
+        "title": "TokenLearner: What Can 8 Learned Tokens Do for Images and Videos?",
+        "url": "https://arxiv.org/abs/2106.11297"
+      },
+      {
+        "title": "MobileViT: Light-weight, General-purpose, and Mobile-friendly Vision Transformer",
+        "url": "https://arxiv.org/abs/2110.02178"
+      }
+    ]
+  },
+  "constraints": [
+    "Feature must be optional and config-switchable.",
+    "Use the baseline TOML as the default base unless explicitly changed.",
+    "Do not modify or replace the pretrained MoViNet backbone.",
+    "Keep the task as binary violence classification.",
+    "Keep the replacement head lightweight and practical for the existing A5 training setup.",
+    "The revision should preserve ranking-sensitive production priorities, especially PPK-style ordering quality under tight false-positive limits."
+  ],
+  "user_signoff": {
+    "approved": true,
+    "approved_by": "user",
+    "approval_notes": "User approved the movinet_attention_pool_head replacement-head direction in chat on 2026-04-15."
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema_type": "implementation",
+  "name": "movinet_attention_pool_head",
+  "created_at": "2026-04-15T07:53:25Z",
+  "role": "coder",
+  "work_type": "REVISION",
+  "source_proposal": {
+    "name": "movinet_attention_pool_head",
+    "path": "/home/fransh/Documents/agents/handoffs/handoff_researcher_movinet_attention_pool_head_1776239110.json"
+  },
+  "branch": {
+    "name": "feature_agent/ml2/movinet_attention_pool_head"
+  },
+  "implementation_status": {
+    "status": "complete",
+    "summary": "Added an optional MoViNet attention-pooling replacement head that flattens the final feature map into tokens, applies learned query cross-attention pooling, and emits the existing binary violence logits. Wired the new head through train config, model construction, model loading, tests, and three 3866-derived TOMLs.",
+    "risks": [
+      "Flattening the full late MoViNet feature map creates a larger token set than the prior MobileViT variant, so the head may still overfit or train noisily on the small finetune set despite using only a few learned queries.",
+      "A single learned query may be too restrictive if strong ordering depends on reading multiple distinct regions or moments, which is why the multi-query variant is included.",
+      "If the partially frozen A5 backbone expects the historical average-pool statistics, this replacement readout may still need a smaller capacity setting or additional regularization to match baseline ranking quality."
+    ]
+  },
+  "recommended_runs": [
+    {
+      "config_path": "3866-attention-pool-head.toml",
+      "reason": "Primary high-conviction revision: one learned query changes only the pooling/readout behavior while keeping baseline training hyperparameters intact."
+    },
+    {
+      "config_path": "3866-attention-pool-head-multi-query.toml",
+      "reason": "Secondary variant that lets the head pool from multiple discriminative regions before aggregation without changing the backbone or overall training setup."
+    },
+    {
+      "config_path": "3866-attention-pool-head-small.toml",
+      "reason": "Lower-capacity fallback to reduce overfitting risk if the default attention head is still too expressive for the partially frozen A5 finetune regime."
+    }
+  ]
+}
