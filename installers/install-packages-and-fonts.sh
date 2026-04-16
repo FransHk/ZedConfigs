@@ -2,7 +2,7 @@
 
 # Update the package database
 sudo pacman -Syu
-sudo pacman -S --needed waybar wofi swaylock btop kitty swappy zed thunar firefox zed starship base-devel hyprpaper pulseaudio github-cli zip unzip swaylock xorg-xrandr brightnessctl less hyprlock bash-completion # basic pkgs 
+sudo pacman -S --needed waybar wofi swaylock btop kitty swappy zed thunar firefox zed starship base-devel hyprpaper pulseaudio github-cli zip unzip swaylock xorg-xrandr brightnessctl less hyprlock bash-completion gvim # basic pkgs 
 sudo pacman -S --needed coreutils # cutils
 
 
