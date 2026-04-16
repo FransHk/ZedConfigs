@@ -22,8 +22,14 @@ alias hybinds='cat ~/.config/hypr/hyprland.conf | grep exec,' # print keybinds
 alias sh='TERM=xterm-256color ssh'
 alias mount='sudo sshfs -o allow_other,default_permissions' # mnt fs (remote, local)
 alias unmount='sudo umount -f' # unmount fs
-PS1='[\u@\h \W]\$ '
 
+# CODEX binds 
+alias coder="ml2; codex --yolo \"Read ~/Documents/agents/AGENTS.md, you are a coder\""
+
+
+PS1='[\u@\h \W]\$ '
 eval "$(starship init bash)"
 export PATH=$HOME/.local/bin:$PATH
-[[ -r /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion # Bash completion (e.g. for Git)
+
+# Bash completion
+[[ -r /usr/share/bash-completion/bash_completion ]] && . /usr/share/bash-completion/bash_completion
